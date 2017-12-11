@@ -19,13 +19,14 @@ const port = app.get('port');
 let campgroundSchema = new mongoose.Schema({
 	name: String,
 	image: String,
+	description: String,
 
 });
 
 let Campground = mongoose.model('Campground', campgroundSchema);
 
 // Campground.create(
-// 	{name: 'Salmon Creek' , image: 'https://farm2.staticflickr.com/1281/4684194306_18ebcdb01c.jpg'},
+// 	{name: 'Salmon Creek' , image: 'https://farm2.staticflickr.com/1281/4684194306_18ebcdb01c.jpg' , description : 'This is a huge Salmon Creek, no bathroom, no water. Beautiful'},
 // 	(error, campground) => {
 // 		if (error){
 // 			console.log(error);
@@ -41,27 +42,44 @@ app.get('/' , (req, res, next) => {
 	res.render("landing");
 });
 
+//INDEX - show all campgrounds
 app.get('/campgrounds', (req, res, next) => {
 	// res.render('campgrounds', {campgrounds: campgrounds});
 	Campground.find({}, (error, allCampgrounds) => {
 		if(error){
 			console.log(error);
 		} else {
-			res.render('campgrounds', {campgrounds:allCampgrounds})
+			res.render('index', {campgrounds:allCampgrounds})
 		}
 
 	});
 });
 
+//NEW - show form to create a campground
 app.get('/campgrounds/new', (req, res, next) => {
 	res.render('new');
 });
 
+//SHOW - shows more info about one campground
+app.get('/campgrounds/:id', (req, res, next) => {
+	//find the campground with provided ID
+	Campground.findById(req.params.id, (error, foundCampground) => {
+		if(error){
+			console.log(error);
+		} else {
+			//render show template with that campground
+			res.render('show', {campground: foundCampground});
+		}
+	});
+});
+
+//CREATE - add new campground to DB
 app.post('/campgrounds', (req, res, next) => {
 	//get data from the form and add  to campground array
-	let name = req.body.name;
-	let image = req.body.image;
-	let newCampground = {name:name , image: image};
+	let name = req.body.name,
+	    image = req.body.image,
+	    description = req.body.description,
+	    newCampground = {name:name , image: image, description: description};
 	//create a new campground and save it to the DB
 	Campground.create(newCampground, (error, newlyCreated) => {
 		if(error){
