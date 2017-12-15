@@ -2,7 +2,8 @@
 const bodyParser = require('body-parser'),
  	  express = require("express"),
 	  app = express(),
-      mongoose = require('mongoose');
+	  mongoose = require('mongoose'),
+	  Campground = require('./models/campground');
 
 //create database
 mongoose.connect('mongodb://localhost/yelp_camp');
@@ -14,16 +15,6 @@ app.set('port', process.env.PORT || 3000);
 const port = app.get('port');
 
 
-//Schema setup
-
-let campgroundSchema = new mongoose.Schema({
-	name: String,
-	image: String,
-	description: String,
-
-});
-
-let Campground = mongoose.model('Campground', campgroundSchema);
 
 // Campground.create(
 // 	{name: 'Salmon Creek' , image: 'https://farm2.staticflickr.com/1281/4684194306_18ebcdb01c.jpg' , description : 'This is a huge Salmon Creek, no bathroom, no water. Beautiful'},
@@ -49,7 +40,7 @@ app.get('/campgrounds', (req, res, next) => {
 		if(error){
 			console.log(error);
 		} else {
-			res.render('index', {campgrounds:allCampgrounds})
+			res.render('index', {campgrounds:allCampgrounds});
 		}
 
 	});
