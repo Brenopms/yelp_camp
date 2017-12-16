@@ -6,8 +6,7 @@ const bodyParser = require('body-parser'),
 	  Campground = require('./models/campground'),
 	  seedDB = require('./seeds');
 
-
-seedDB();	  
+	  
 //create database
 mongoose.connect('mongodb://localhost/yelp_camp');
 
@@ -17,20 +16,8 @@ app.set('view engine', 'ejs');
 app.set('port', process.env.PORT || 3000);
 const port = app.get('port');
 
-
-
-// Campground.create(
-// 	{name: 'Salmon Creek' , image: 'https://farm2.staticflickr.com/1281/4684194306_18ebcdb01c.jpg' , description : 'This is a huge Salmon Creek, no bathroom, no water. Beautiful'},
-// 	(error, campground) => {
-// 		if (error){
-// 			console.log(error);
-// 		}
-// 		else {
-// 			console.log('Newly created campground');
-// 			console.log(campground);
-// 		}
-// 	});
-
+//Seed data
+seedDB();
 
 app.get('/' , (req, res, next) => {
 	res.render("landing");
@@ -57,10 +44,11 @@ app.get('/campgrounds/new', (req, res, next) => {
 //SHOW - shows more info about one campground
 app.get('/campgrounds/:id', (req, res, next) => {
 	//find the campground with provided ID
-	Campground.findById(req.params.id, (error, foundCampground) => {
+	Campground.findById(req.params.id).populate('comments').exec((error, foundCampground) => {
 		if(error){
 			console.log(error);
 		} else {
+			console.log('hello' + foundCampground);
 			//render show template with that campground
 			res.render('show', {campground: foundCampground});
 		}
