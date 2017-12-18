@@ -1,9 +1,11 @@
+
 'use strict';
 const bodyParser = require('body-parser'),
  	  express = require("express"),
 	  app = express(),
 	  mongoose = require('mongoose'),
 	  Campground = require('./models/campground'),
+	  Comment = require('./models/comment'),
 	  seedDB = require('./seeds');
 
 	  
@@ -48,7 +50,7 @@ app.get('/campgrounds/:id', (req, res, next) => {
 		if(error){
 			console.log(error);
 		} else {
-			console.log(`hello  ${foundCampground}`);
+			// console.log(`hello  ${foundCampground}`);
 			//render show template with that campground
 			res.render('campgrounds/show', {campground: foundCampground});
 		}
@@ -68,7 +70,7 @@ app.post('/campgrounds', (req, res, next) => {
 			console.log(error);
 		} else {
 			//redirect back to the campground route
-			res.redirect('campgrounds/campgrounds');
+			res.redirect('/campgrounds');
 		}
 	});
 
@@ -77,9 +79,38 @@ app.post('/campgrounds', (req, res, next) => {
 // --------------------- Comments Route ---------------------------
 
 app.get('/campgrounds/:id/comments/new', (req, res, next) => {
-	res.render('comments/new');
+	//find campground by ID
+	Campground.findById(req.params.id, (error, campground) => {
+		if(error){
+			console.log(error);
+		} else {
+			res.render('comments/new', {campground: campground})
+		}
+	})
 });
 
+app.post('/campgrounds/:id/comments', (req, res, next) => {
+	//lookup campgorund using ID
+	Campground.findById(req.params.id, (error, campground) => {
+		if (error){
+			console.log('error');
+			res.redirect('/campground')
+		} else {
+			//create new commen
+			Comment.create(req.body.comment, (error, comment) =>{
+				if(error){
+					console.log(error);
+				} else {
+					//connect new comment to campground
+					campground.comments.push(comment);
+					campground.save();
+					//redirect to show page
+					res.redirect(`/campgrounds/${campground._id}`);
+				}
+			})
+		}
+	});
+})
 
 
 
