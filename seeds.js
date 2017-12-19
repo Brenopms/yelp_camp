@@ -7,17 +7,26 @@ let data = [
     {
         name: 'Clouds rest',
         image:'https://farm2.staticflickr.com/1281/4684194306_18ebcdb01c.jpg',
-        description: 'Nice camp with beautiful green trees'
+        description: `  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis magni accusamus provident natus laborum corrupti commodi assumenda, tempora omnis iusto earum odio perferendis nihil incidunt molestiae est autem et consequuntur?
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis magni accusamus provident natus laborum corrupti commodi assumenda, tempora omnis iusto earum odio perferendis nihil incidunt molestiae est autem et consequuntur?
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis magni accusamus provident natus laborum corrupti commodi assumenda, tempora omnis iusto earum odio perferendis nihil incidunt molestiae est autem et consequuntur?
+        `
     },
     {
         name: 'Snow rest',
         image:'https://farm3.staticflickr.com/2866/9633983432_f8f0d82a88.jpg',
-        description: 'Cold. Really Cold.'
+        description: `  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis magni accusamus provident natus laborum corrupti commodi assumenda, tempora omnis iusto earum odio perferendis nihil incidunt molestiae est autem et consequuntur?
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis magni accusamus provident natus laborum corrupti commodi assumenda, tempora omnis iusto earum odio perferendis nihil incidunt molestiae est autem et consequuntur?
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis magni accusamus provident natus laborum corrupti commodi assumenda, tempora omnis iusto earum odio perferendis nihil incidunt molestiae est autem et consequuntur?
+        `
     },
     {
         name: 'Sunset sea',
         image:'https://farm3.staticflickr.com/2587/3918023295_7e6e22c1e6.jpg',
-        description: 'Sunset.'
+        description: `  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis magni accusamus provident natus laborum corrupti commodi assumenda, tempora omnis iusto earum odio perferendis nihil incidunt molestiae est autem et consequuntur?
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis magni accusamus provident natus laborum corrupti commodi assumenda, tempora omnis iusto earum odio perferendis nihil incidunt molestiae est autem et consequuntur?
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis magni accusamus provident natus laborum corrupti commodi assumenda, tempora omnis iusto earum odio perferendis nihil incidunt molestiae est autem et consequuntur?
+        `
     }
 
 ]
