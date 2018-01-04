@@ -13,7 +13,8 @@ const bodyParser = require('body-parser'),
 
 	  
 //create database
-mongoose.connect('mongodb://localhost/yelp_camp');
+mongoose.connect('mongodb://localhost/yelp_camp', { useMongoClient: true });
+mongoose.Promise = global.Promise;
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
@@ -130,6 +131,36 @@ app.post('/campgrounds/:id/comments', (req, res, next) => {
 })
 
 
+//AUTH ROUTES
+app.get('/register', (req, res) => {
+	res.render('register');
+});
+
+//handle sign up logic
+app.post('/register', (req, res) => {
+	const newUser = new User({username: req.body.username});
+	User.register(newUser, req.body.password, (error, user) => {
+		if(error){
+			console.log(error);
+			return res.render('register');
+		}
+		passport.authenticate('local')(req, res, () => {
+			res.redirect('/campgrounds');
+		});
+	});
+});
+
+//Show login form
+app.get('/login', (req,res) => {
+	res.render('login');
+});
+
+app.post('/login', passport.authenticate('local', 
+{
+	successRedirect: '/campgrounds',
+	failureRedirect: '/login'
+}), (req, res) => {	
+});
 
 app.listen(port, () => {
 	console.log('Server running on port: ', port);
