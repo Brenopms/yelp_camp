@@ -27,7 +27,7 @@ app.set('port', process.env.PORT || 3000);
 const port = app.get('port');
 
 //Seed data
-seedDB();
+// seedDB();
 
 //PASSPORT CONFIGURATION
 app.use(require('express-session')({
