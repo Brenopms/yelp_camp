@@ -23,6 +23,7 @@ mongoose.Promise = global.Promise;
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
+app.use(methodOverride('_method'));
 
 app.set('port', process.env.PORT || 3000);
 const port = app.get('port');

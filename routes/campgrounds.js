@@ -59,7 +59,27 @@ router.get('/:id', (req, res, next) => {
 });
 
 //EDIT campground route
+router.get('/:id/edit', (req, res) => {
+	Campground.findById(req.params.id, (error, foundCampground) => {
+		if(error){
+			res.redirect('/campgrounds');
+		} else {
+			res.render('campgrounds/edit', {campground: foundCampground});
+		}
+	});
+});
 
+router.put('/:id', (req, res) => {
+	//find and update the correct campground
+	Campground.findByIdAndUpdate(req.params.id, req.body.campground, (error, updatedCampground) => {
+		if(error){
+			res.redirect('/campgrounds');
+		} else {
+			res.redirect(`/campgrounds/${req.params.id}`);
+		}
+	});
+	//redirect some page
+})
 
 
 //UPDATE campground route
