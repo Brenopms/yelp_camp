@@ -6,3 +6,7 @@
 .thumbnail img {
     width: 100%;
 }
+
+.delete_form {
+    display: inline;
+}
