@@ -20,10 +20,12 @@ router.post('/register', (req, res) => {
 	const newUser = new User({username: req.body.username});
 	User.register(newUser, req.body.password, (error, user) => {
 		if(error){
-			console.log(error);
-			return res.render('register');
+			console.log(error.message);
+			req.flash('error', error.message);
+			return res.redirect('register');
 		}
 		passport.authenticate('local')(req, res, () => {
+			req.flash('success', `Welcome to YelpCamp ${user.username}`);
 			res.redirect('/campgrounds');
 		});
 	});
@@ -31,19 +33,22 @@ router.post('/register', (req, res) => {
 
 //Show login form
 router.get('/login', (req,res) => {
-	res.render('login');
+	res.render('login', {message: req.flash('error')});
 });
 
 router.post('/login', passport.authenticate('local', 
 {
 	successRedirect: '/campgrounds',
-	failureRedirect: '/login'
+	failureRedirect: '/login',
+	successFlash: true,
+	failureFlash: true
 }), (req, res) => {	
 });
 
 //Logout Route
 router.get('/logout', (req, res) => {
 	req.logout();
+	req.flash('success', 'Logged you out');
 	res.redirect('/campgrounds');
 });
 

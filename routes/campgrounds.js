@@ -71,6 +71,7 @@ router.put('/:id', middleware.checkCampgroundOwnership, (req, res) => {
 	//find and update the correct campground
 	Campground.findByIdAndUpdate(req.params.id, req.body.campground, (error, updatedCampground) => {
 		if(error){
+			req.flash('error', 'Error in database. We are sorry!');
 			res.redirect('/campgrounds');
 		} else {
 				//redirect the campground page
