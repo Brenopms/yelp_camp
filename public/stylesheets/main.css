@@ -10,3 +10,8 @@
 .delete_form {
     display: inline;
 }
+
+.form-login {
+  width: 30%; 
+  margin: 25px auto;
+}

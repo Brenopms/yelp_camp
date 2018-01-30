@@ -18,7 +18,7 @@ const commentRoutes = require('./routes/comments'),
 	  indexRoutes = require('./routes/index');
 	  
 //create database
-mongoose.connect('mongodb://localhost/yelp_camp', { useMongoClient: true });
+mongoose.connect('mongodb://localhost/yelp_camp2', { useMongoClient: true });
 mongoose.Promise = global.Promise;
 
 app.use(bodyParser.urlencoded({extended: true}));
