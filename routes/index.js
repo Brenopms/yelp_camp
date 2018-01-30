@@ -18,9 +18,11 @@ router.get('/register', (req, res) => {
 //handle sign up logic
 router.post('/register', (req, res) => {
 	const newUser = new User({username: req.body.username});
+	if (req.body.adminCode === 'secretcoder'){
+		newUser.isAdmin = true;
+	}
 	User.register(newUser, req.body.password, (error, user) => {
 		if(error){
-			console.log(error.message);
 			req.flash('error', error.message);
 			return res.redirect('register');
 		}
@@ -43,6 +45,7 @@ router.post('/login', passport.authenticate('local',
 	successFlash: true,
 	failureFlash: true
 }), (req, res) => {	
+	//passport alredy handles the route
 });
 
 //Logout Route
